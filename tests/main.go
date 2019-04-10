@@ -8,7 +8,6 @@ import (
 )
 
 func main() {
-
 	resp, err := http.Post("http://localhost:8080/fizzbuzz?fizz=riri&buzz=loulou&int1=2&int2=5&limit=100", "", nil)
 	if err != nil {
 		log.Fatal(err)
@@ -18,6 +17,5 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	fmt.Println(string(body))
 }
