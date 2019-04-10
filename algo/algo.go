@@ -12,7 +12,7 @@ type FizzBuzz struct {
 }
 
 // FizzBuzzAlgo is mainy algo
-func FizzBuzzAlgo(fizzBuzz FizzBuzz) (resultFizzBuzz []string) {
+func FizzBuzzAlgo(fizzBuzz *FizzBuzz) (resultFizzBuzz []string) {
 	resultFizzBuzz = append(resultFizzBuzz, ",")
 
 	for i := 0; i <= fizzBuzz.Limit; i++ {

@@ -15,15 +15,12 @@ import (
 // FizzBuzzHandler is entrypoint for return fizzBuzz request
 func FizzBuzzHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
-		fizzF, buzzF, int1Num, int2Num, limitNum := parseParameters(r.URL.Query())
-		buffer := &bytes.Buffer{}
-		fb := algo.FizzBuzz{
-			Fizz:  fizzF,
-			Buzz:  buzzF,
-			Int1:  int1Num,
-			Int2:  int2Num,
-			Limit: limitNum,
+		fb, err := parseParameters(r.URL.Query())
+		if err != nil {
+			w.Write([]byte(err.Error()))
 		}
+		buffer := &bytes.Buffer{}
+
 		gob.NewEncoder(buffer).Encode(algo.FizzBuzzAlgo(fb))
 		fmt.Println(algo.FizzBuzzAlgo(fb))
 
@@ -32,7 +29,7 @@ func FizzBuzzHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // parseParameters receive argument from fizzbuzz request and return corrected argument for fizzbuzz algo
-func parseParameters(param url.Values) (fizzF, buzzF string, int1Num, int2Num, limitNum int) {
+func parseParameters(param url.Values) (*algo.FizzBuzz, error) {
 	fizz, okfizz := param["fizz"]
 	buzz, okbuzz := param["buzz"]
 	int1, okint1 := param["int1"]
@@ -40,28 +37,27 @@ func parseParameters(param url.Values) (fizzF, buzzF string, int1Num, int2Num, l
 	limit, oklimit := param["limit"]
 
 	if !okfizz || len(fizz[0]) < 1 {
-		log.Println("Url Param 'key' is missing")
-		return
+		return nil, fmt.Errorf("Url Param 'key' is missing")
 	}
 	if !okbuzz || len(buzz[0]) < 1 {
 		log.Println("Url Param 'key' is missing")
-		return
+		return nil, fmt.Errorf("Url Param 'key' is missing")
 	}
 	if !okint1 || len(int1[0]) < 1 {
 		log.Println("Url Param 'key' is missing")
-		return
+		return nil, fmt.Errorf("Url Param 'key' is missing")
 	}
 	if !okint2 || len(int2[0]) < 1 {
 		log.Println("Url Param 'key' is missing")
-		return
+		return nil, fmt.Errorf("Url Param 'key' is missing")
 	}
 	if !oklimit || len(limit[0]) < 1 {
 		log.Println("Url Param 'key' is missing")
-		return
+		return nil, fmt.Errorf("Url Param 'key' is missing")
 	}
 
-	fizzF = fizz[0]
-	buzzF = buzz[0]
+	fizzF := fizz[0]
+	buzzF := buzz[0]
 	int1F := int1[0]
 	int2F := int2[0]
 	limitF := limit[0]
@@ -73,16 +69,21 @@ func parseParameters(param url.Values) (fizzF, buzzF string, int1Num, int2Num, l
 	log.Println("Url Param 'limitF' is: " + string(limitF))
 	int1Num, err := strconv.Atoi(string(int1F))
 	if err != nil {
-
-		log.Print("error value receive int1 ", err)
+		return nil, err
 	}
-	int2Num, err = strconv.Atoi(string(int2F))
+	int2Num, err := strconv.Atoi(string(int2F))
 	if err != nil {
-		log.Print("error value receive int2 ", err)
+		return nil, err
 	}
-	limitNum, err = strconv.Atoi(string(limitF))
+	limitNum, err := strconv.Atoi(string(limitF))
 	if err != nil {
-		log.Print("error value receive int2 ", err)
+		return nil, err
 	}
-	return
+	return &algo.FizzBuzz{
+		Fizz:  fizzF,
+		Buzz:  buzzF,
+		Int1:  int1Num,
+		Int2:  int2Num,
+		Limit: limitNum,
+	}, nil
 }
