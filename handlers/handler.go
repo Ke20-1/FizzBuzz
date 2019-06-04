@@ -32,8 +32,8 @@ func FizzBuzzHandler(w http.ResponseWriter, r *http.Request) {
 func parseParameters(param url.Values) (*algo.FizzBuzz, error) {
 	fizz, okfizz := param["fizz"]
 	buzz, okbuzz := param["buzz"]
-	int1, okint1 := param["int1"]
-	int2, okint2 := param["int2"]
+	val1, okval1 := param["val1"]
+	val2, okval2 := param["val2"]
 	limit, oklimit := param["limit"]
 
 	if !okfizz || len(fizz[0]) < 1 {
@@ -43,11 +43,11 @@ func parseParameters(param url.Values) (*algo.FizzBuzz, error) {
 		log.Println("Url Param 'key' is missing")
 		return nil, fmt.Errorf("Url Param 'key' is missing")
 	}
-	if !okint1 || len(int1[0]) < 1 {
+	if !okval1 || len(val1[0]) < 1 {
 		log.Println("Url Param 'key' is missing")
 		return nil, fmt.Errorf("Url Param 'key' is missing")
 	}
-	if !okint2 || len(int2[0]) < 1 {
+	if !okval2 || len(val2[0]) < 1 {
 		log.Println("Url Param 'key' is missing")
 		return nil, fmt.Errorf("Url Param 'key' is missing")
 	}
@@ -58,20 +58,20 @@ func parseParameters(param url.Values) (*algo.FizzBuzz, error) {
 
 	fizzF := fizz[0]
 	buzzF := buzz[0]
-	int1F := int1[0]
-	int2F := int2[0]
+	val1F := val1[0]
+	val2F := val2[0]
 	limitF := limit[0]
 
 	log.Println("Url Param 'fizz' is: " + string(fizzF))
 	log.Println("Url Param 'buzzF' is: " + string(buzzF))
-	log.Println("Url Param 'int1F' is: " + string(int1F))
-	log.Println("Url Param 'int2F' is: " + string(int2F))
+	log.Println("Url Param 'val1F' is: " + string(val1F))
+	log.Println("Url Param 'val2F' is: " + string(val2F))
 	log.Println("Url Param 'limitF' is: " + string(limitF))
-	int1Num, err := strconv.Atoi(string(int1F))
+	val1Num, err := strconv.Atoi(string(val1F))
 	if err != nil {
 		return nil, err
 	}
-	int2Num, err := strconv.Atoi(string(int2F))
+	val2Num, err := strconv.Atoi(string(val2F))
 	if err != nil {
 		return nil, err
 	}
@@ -82,8 +82,8 @@ func parseParameters(param url.Values) (*algo.FizzBuzz, error) {
 	return &algo.FizzBuzz{
 		Fizz:  fizzF,
 		Buzz:  buzzF,
-		Int1:  int1Num,
-		Int2:  int2Num,
+		Int1:  val1Num,
+		Int2:  val2Num,
 		Limit: limitNum,
 	}, nil
 }
