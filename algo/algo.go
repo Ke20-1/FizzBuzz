@@ -12,32 +12,32 @@ type FizzBuzz struct {
 }
 
 // FizzBuzzAlgo is mainy algo
-func FizzBuzzAlgo(fizzBuzz *FizzBuzz) (resultFizzBuzz []string) {
-	resultFizzBuzz = append(resultFizzBuzz, ",")
+func FizzBuzzAlgo(fizzBuzz *FizzBuzz) (resultFizzBuzz string) {
+	//resultFizzBuzz = append(resultFizzBuzz, ",")
 
 	for i := 0; i <= fizzBuzz.Limit; i++ {
 		if i == 0 {
-			resultFizzBuzz = append(resultFizzBuzz, strconv.Itoa(i))
-			resultFizzBuzz = append(resultFizzBuzz, ",")
+			resultFizzBuzz += strconv.Itoa(i) + ","
+			// resultFizzBuzz += "," + ","
 			continue
 		}
 		if (i%fizzBuzz.Int1 == 0) && (i%fizzBuzz.Int2 == 0) {
-			resultFizzBuzz = append(resultFizzBuzz, fizzBuzz.Fizz+fizzBuzz.Buzz)
-			resultFizzBuzz = append(resultFizzBuzz, ",")
+			resultFizzBuzz += fizzBuzz.Fizz + fizzBuzz.Buzz + ","
+			// resultFizzBuzz += "," + ","
 			continue
 		}
 		if i%fizzBuzz.Int1 == 0 {
-			resultFizzBuzz = append(resultFizzBuzz, fizzBuzz.Fizz)
-			resultFizzBuzz = append(resultFizzBuzz, ",")
+			resultFizzBuzz += fizzBuzz.Fizz + ","
+			// resultFizzBuzz += "," + ","
 			continue
 		}
 		if i%fizzBuzz.Int2 == 0 {
-			resultFizzBuzz = append(resultFizzBuzz, fizzBuzz.Buzz)
-			resultFizzBuzz = append(resultFizzBuzz, ",")
+			resultFizzBuzz += fizzBuzz.Buzz + ","
+			// resultFizzBuzz += "," + ","
 			continue
 		}
-		resultFizzBuzz = append(resultFizzBuzz, strconv.Itoa(i))
-		resultFizzBuzz = append(resultFizzBuzz, ",")
+		resultFizzBuzz += strconv.Itoa(i) + ","
+		// resultFizzBuzz = append(resultFizzBuzz, ",")
 	}
-	return
+	return resultFizzBuzz[:len(resultFizzBuzz)-1]
 }

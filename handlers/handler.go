@@ -4,16 +4,30 @@ import (
 	"bytes"
 	"encoding/gob"
 	"fmt"
-	"log"
 	"net/http"
 	"net/url"
 	"strconv"
 
+	"github.com/sirupsen/logrus"
 	"gitlab.app.treezor.com/card/example/FizzBuzz/algo"
 )
 
+// LogMiddleware log info
+// func LogMiddleware(next http.Handler) http.Handler {
+// 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+//
+// 		logger.WithFields(logger.Fields{
+// 			"animal": "walrus",
+// 		}).Info("A walrus appears")
+// 		next.ServeHTTP(w, r)
+// 	})
+// }
+
+var log = logrus.New()
+
 // FizzBuzzHandler is entrypoint for return fizzBuzz request
 func FizzBuzzHandler(w http.ResponseWriter, r *http.Request) {
+	log.Info("incomming request")
 	if r.Method == "POST" {
 		fb, err := parseParameters(r.URL.Query())
 		if err != nil {
@@ -22,9 +36,11 @@ func FizzBuzzHandler(w http.ResponseWriter, r *http.Request) {
 		buffer := &bytes.Buffer{}
 
 		gob.NewEncoder(buffer).Encode(algo.FizzBuzzAlgo(fb))
-		fmt.Println(algo.FizzBuzzAlgo(fb))
+		log.Info(algo.FizzBuzzAlgo(fb))
 
 		w.Write(buffer.Bytes())
+	} else {
+		log.Info("request discard because not a post")
 	}
 }
 
