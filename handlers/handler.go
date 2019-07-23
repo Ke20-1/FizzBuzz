@@ -14,7 +14,7 @@ import (
 
 var log = logrus.New()
 
-// fizzbuzzHandler is entrypoint for return fizzbuzz request
+// FizzbuzzHandler is entrypoint for return fizzbuzz request
 func FizzbuzzHandler(w http.ResponseWriter, r *http.Request) {
 	log.Info("incomming request")
 	if r.Method == "POST" {
@@ -24,6 +24,7 @@ func FizzbuzzHandler(w http.ResponseWriter, r *http.Request) {
 			if err != nil {
 				log.Errorf("error to send error response : %v", err)
 			}
+			return
 		}
 		buffer := &bytes.Buffer{}
 
@@ -42,7 +43,6 @@ func FizzbuzzHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// parseParameters receive argument from fizzbuzz request and return corrected argument for fizzbuzz algo
 func parseParameters(param url.Values) (*algo.Fizzbuzz, error) {
 	fizz, okfizz := param["fizz"]
 	buzz, okbuzz := param["buzz"]
@@ -51,23 +51,24 @@ func parseParameters(param url.Values) (*algo.Fizzbuzz, error) {
 	limit, oklimit := param["limit"]
 
 	if !okfizz || len(fizz[0]) < 1 {
-		return nil, fmt.Errorf("url Param 'key' is missing")
+		log.Println("url Param 'fizz' is missing")
+		return nil, fmt.Errorf("url Param 'fizz' is missing")
 	}
 	if !okbuzz || len(buzz[0]) < 1 {
-		log.Println("url Param 'key' is missing")
-		return nil, fmt.Errorf("url Param 'key' is missing")
+		log.Println("url Param 'buzz' is missing")
+		return nil, fmt.Errorf("url Param 'buzz' is missing")
 	}
 	if !okval1 || len(val1[0]) < 1 {
-		log.Println("url Param 'key' is missing")
-		return nil, fmt.Errorf("url Param 'key' is missing")
+		log.Println("url Param 'val1' is missing")
+		return nil, fmt.Errorf("url Param 'val1' is missing")
 	}
 	if !okval2 || len(val2[0]) < 1 {
-		log.Println("url Param 'key' is missing")
-		return nil, fmt.Errorf("url Param 'key' is missing")
+		log.Println("url Param 'val2' is missing")
+		return nil, fmt.Errorf("url Param 'val2' is missing")
 	}
 	if !oklimit || len(limit[0]) < 1 {
-		log.Println("url Param 'key' is missing")
-		return nil, fmt.Errorf("url Param 'key' is missing")
+		log.Println("url Param 'limit' is missing")
+		return nil, fmt.Errorf("url Param 'limit' is missing")
 	}
 
 	fizzF := fizz[0]

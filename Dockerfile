@@ -1,11 +1,7 @@
-# All Dockerfiles start from a base image
-# you want to choose as lightweight a base
-# image to start with as possible
-
 FROM golang:1.11.8-alpine3.9
 
 # Linux dependencies.
-RUN apk add --no-cache libc6-compat libtool libltdl g++ gcompat
+RUN apk add --no-cache g++ git
 
 # we create a directory within our docker image
 # that will contain all of the code for our app
