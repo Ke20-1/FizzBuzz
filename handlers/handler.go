@@ -8,20 +8,10 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/sirupsen/logrus"
-	"gitlab.app.treezor.com/card/example/FizzBuzz/algo"
-)
+	"FizzBuzz/algo"
 
-// LogMiddleware log info
-// func LogMiddleware(next http.Handler) http.Handler {
-// 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-//
-// 		logger.WithFields(logger.Fields{
-// 			"animal": "walrus",
-// 		}).Info("A walrus appears")
-// 		next.ServeHTTP(w, r)
-// 	})
-// }
+	"github.com/sirupsen/logrus"
+)
 
 var log = logrus.New()
 

@@ -4,8 +4,9 @@ import (
 	"net/http"
 	"os"
 
+	"FizzBuzz/handlers"
+
 	"github.com/sirupsen/logrus"
-	"gitlab.app.treezor.com/card/example/FizzBuzz/handlers"
 )
 
 func main() {
