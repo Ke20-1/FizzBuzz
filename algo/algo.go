@@ -2,8 +2,8 @@ package algo
 
 import "strconv"
 
-// FizzBuzz is struct for make algo
-type FizzBuzz struct {
+// Fizzbuzz is struct for make algo
+type Fizzbuzz struct {
 	Fizz  string
 	Buzz  string
 	Int1  int
@@ -11,33 +11,33 @@ type FizzBuzz struct {
 	Limit int
 }
 
-// FizzBuzzAlgo is mainy algo
-func FizzBuzzAlgo(fizzBuzz *FizzBuzz) (resultFizzBuzz string) {
-	//resultFizzBuzz = append(resultFizzBuzz, ",")
+// fizzbuzzAlgo is mainy algo
+func FizzbuzzAlgo(fizzbuzz *Fizzbuzz) (resultfizzbuzz string) {
+	//resultfizzbuzz = append(resultfizzbuzz, ",")
 
-	for i := 0; i <= fizzBuzz.Limit; i++ {
+	for i := 0; i <= fizzbuzz.Limit; i++ {
 		if i == 0 {
-			resultFizzBuzz += strconv.Itoa(i) + ","
-			// resultFizzBuzz += "," + ","
+			resultfizzbuzz += strconv.Itoa(i) + ","
+			// resultfizzbuzz += "," + ","
 			continue
 		}
-		if (i%fizzBuzz.Int1 == 0) && (i%fizzBuzz.Int2 == 0) {
-			resultFizzBuzz += fizzBuzz.Fizz + fizzBuzz.Buzz + ","
-			// resultFizzBuzz += "," + ","
+		if (i%fizzbuzz.Int1 == 0) && (i%fizzbuzz.Int2 == 0) {
+			resultfizzbuzz += fizzbuzz.Fizz + fizzbuzz.Buzz + ","
+			// resultfizzbuzz += "," + ","
 			continue
 		}
-		if i%fizzBuzz.Int1 == 0 {
-			resultFizzBuzz += fizzBuzz.Fizz + ","
-			// resultFizzBuzz += "," + ","
+		if i%fizzbuzz.Int1 == 0 {
+			resultfizzbuzz += fizzbuzz.Fizz + ","
+			// resultfizzbuzz += "," + ","
 			continue
 		}
-		if i%fizzBuzz.Int2 == 0 {
-			resultFizzBuzz += fizzBuzz.Buzz + ","
-			// resultFizzBuzz += "," + ","
+		if i%fizzbuzz.Int2 == 0 {
+			resultfizzbuzz += fizzbuzz.Buzz + ","
+			// resultfizzbuzz += "," + ","
 			continue
 		}
-		resultFizzBuzz += strconv.Itoa(i) + ","
-		// resultFizzBuzz = append(resultFizzBuzz, ",")
+		resultfizzbuzz += strconv.Itoa(i) + ","
+		// resultfizzbuzz = append(resultfizzbuzz, ",")
 	}
-	return resultFizzBuzz[:len(resultFizzBuzz)-1]
+	return resultfizzbuzz[:len(resultfizzbuzz)-1]
 }

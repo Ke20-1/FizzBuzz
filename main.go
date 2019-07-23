@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"os"
 
-	"FizzBuzz/handlers"
+	"fizzbuzz/handlers"
 
 	"github.com/sirupsen/logrus"
 )
@@ -14,6 +14,6 @@ func main() {
 	log.Out = os.Stdout
 	log.Info("Starting server")
 
-	http.HandleFunc("/fizzbuzz", handlers.FizzBuzzHandler)
+	http.HandleFunc("/fizzbuzz", handlers.FizzbuzzHandler)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }

@@ -3,20 +3,19 @@ package handlers
 import (
 	"bytes"
 	"encoding/gob"
+	"fizzbuzz/algo"
 	"fmt"
 	"net/http"
 	"net/url"
 	"strconv"
-
-	"FizzBuzz/algo"
 
 	"github.com/sirupsen/logrus"
 )
 
 var log = logrus.New()
 
-// FizzBuzzHandler is entrypoint for return fizzBuzz request
-func FizzBuzzHandler(w http.ResponseWriter, r *http.Request) {
+// fizzbuzzHandler is entrypoint for return fizzbuzz request
+func FizzbuzzHandler(w http.ResponseWriter, r *http.Request) {
 	log.Info("incomming request")
 	if r.Method == "POST" {
 		fb, err := parseParameters(r.URL.Query())
@@ -28,11 +27,11 @@ func FizzBuzzHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		buffer := &bytes.Buffer{}
 
-		err = gob.NewEncoder(buffer).Encode(algo.FizzBuzzAlgo(fb))
+		err = gob.NewEncoder(buffer).Encode(algo.FizzbuzzAlgo(fb))
 		if err != nil {
 			log.Errorf("error to encode response : %v", err)
 		}
-		log.Info(algo.FizzBuzzAlgo(fb))
+		log.Info(algo.FizzbuzzAlgo(fb))
 
 		_, err = w.Write(buffer.Bytes())
 		if err != nil {
@@ -44,7 +43,7 @@ func FizzBuzzHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // parseParameters receive argument from fizzbuzz request and return corrected argument for fizzbuzz algo
-func parseParameters(param url.Values) (*algo.FizzBuzz, error) {
+func parseParameters(param url.Values) (*algo.Fizzbuzz, error) {
 	fizz, okfizz := param["fizz"]
 	buzz, okbuzz := param["buzz"]
 	val1, okval1 := param["val1"]
@@ -94,7 +93,7 @@ func parseParameters(param url.Values) (*algo.FizzBuzz, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &algo.FizzBuzz{
+	return &algo.Fizzbuzz{
 		Fizz:  fizzF,
 		Buzz:  buzzF,
 		Int1:  val1Num,
