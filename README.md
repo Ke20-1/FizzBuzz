@@ -1,6 +1,6 @@
 # FizzBuzz
 
-This Service exposes a API service of Fizzbuzz algorithme
+This Service exposes a API service of Fizzbuzz algorithm
 
 
 ### Installation
