@@ -14,12 +14,12 @@ type Fizzbuzz struct {
 // FizzbuzzAlgo is mainy algo
 func FizzbuzzAlgo(fizzbuzz *Fizzbuzz) (resultfizzbuzz string) {
 	for i := 0; i <= fizzbuzz.Limit; i++ {
-		if i == 0 {
-			resultfizzbuzz += strconv.Itoa(i) + ","
+		if i%(fizzbuzz.Int1*fizzbuzz.Int2) == 0 {
+			resultfizzbuzz += fizzbuzz.Fizz + fizzbuzz.Buzz + ","
 			continue
 		}
-		if (i%fizzbuzz.Int1 == 0) && (i%fizzbuzz.Int2 == 0) {
-			resultfizzbuzz += fizzbuzz.Fizz + fizzbuzz.Buzz + ","
+		if i == 0 {
+			resultfizzbuzz += strconv.Itoa(i) + ","
 			continue
 		}
 		if i%fizzbuzz.Int1 == 0 {
